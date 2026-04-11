@@ -7,819 +7,290 @@
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
 <meta name="apple-mobile-web-app-title" content="My Prop Journey"/>
-<meta name="description" content="Track all your prop firm accounts, rules, payouts and goals in one dashboard."/>
+<meta name="description" content="Track all your prop firm accounts in one dashboard."/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800;900&family=Syne:wght@800;900&display=swap" rel="stylesheet"/>
 <title>My Prop Journey</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
 :root{
-  --bg:#F0F4FF;--white:#fff;--card2:#F7F9FF;--border:#E2E8F8;--border2:#C8D4F0;
-  --navy:#0F172A;--text:#0F172A;--text2:#475569;--text3:#94A3B8;
-  --purple:#5B4FE9;--purplebg:#EEF0FF;--green:#059669;--greenbg:#ECFDF5;
-  --red:#DC2626;--redbg:#FEF2F2;--amber:#D97706;--amberbg:#FFFBEB;--blue:#0284C7;
-  --font:'Plus Jakarta Sans',sans-serif;--display:'Syne',sans-serif;
-  --safe-top:env(safe-area-inset-top,0px);--safe-bottom:env(safe-area-inset-bottom,0px);
-  --nav-h:62px;
+  --bg:#F0F4FF;--white:#fff;--c2:#F7F9FF;--bdr:#E2E8F8;--bdr2:#C8D4F0;
+  --navy:#0F172A;--t2:#475569;--t3:#94A3B8;
+  --pu:#5B4FE9;--pubg:#EEF0FF;--gr:#059669;--grbg:#ECFDF5;
+  --rd:#DC2626;--rdbg:#FEF2F2;--am:#D97706;--ambg:#FFFBEB;
+  --font:'Plus Jakarta Sans',sans-serif;--disp:'Syne',sans-serif;
+  --st:env(safe-area-inset-top,0px);--sb:env(safe-area-inset-bottom,0px);
+  --nh:62px;
 }
-html,body{height:100%;background:var(--bg);font-family:var(--font);color:var(--text);-webkit-font-smoothing:antialiased;}
-#app{height:100%;display:flex;flex-direction:column;max-width:480px;margin:0 auto;background:var(--bg);position:relative;}
-.page{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;padding-bottom:calc(var(--nav-h) + var(--safe-bottom) + 8px);}
-::-webkit-scrollbar{width:4px;}::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px;}
+html,body{height:100%;background:var(--bg);font-family:var(--font);color:var(--navy);-webkit-font-smoothing:antialiased;}
+#app{height:100%;display:flex;flex-direction:column;max-width:480px;margin:0 auto;background:var(--bg);}
+.page{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;padding-bottom:calc(var(--nh) + var(--sb) + 8px);}
+::-webkit-scrollbar{width:4px;}::-webkit-scrollbar-thumb{background:var(--bdr2);border-radius:2px;}
 
 /* NAV */
-.bnav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:#fff;border-top:1.5px solid var(--border);display:flex;padding-bottom:var(--safe-bottom);z-index:100;box-shadow:0 -4px 16px rgba(91,79,233,0.08);}
+.bnav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:#fff;border-top:1.5px solid var(--bdr);display:flex;padding-bottom:var(--sb);z-index:100;box-shadow:0 -4px 16px rgba(91,79,233,.08);}
 .nbt{flex:1;border:none;background:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 4px 8px;position:relative;}
-.nbt .ni{font-size:19px;line-height:1;}.nbt .nl{font-size:9px;font-weight:700;color:var(--text3);font-family:var(--font);}
-.nbt.on .nl{color:var(--purple);}
-.nbt.on::after{content:'';position:absolute;top:0;left:20%;right:20%;height:2.5px;background:var(--purple);border-radius:0 0 4px 4px;}
+.nbt .ni{font-size:19px;line-height:1;}.nbt .nl{font-size:9px;font-weight:700;color:var(--t3);font-family:var(--font);}
+.nbt.on .nl{color:var(--pu);}
+.nbt.on::after{content:'';position:absolute;top:0;left:20%;right:20%;height:2.5px;background:var(--pu);border-radius:0 0 4px 4px;}
 
 /* PAGE HDR */
-.ph{padding:calc(var(--safe-top) + 13px) 16px 13px;display:flex;justify-content:space-between;align-items:center;background:#fff;border-bottom:1.5px solid var(--border);box-shadow:0 2px 8px rgba(91,79,233,0.07);position:sticky;top:0;z-index:40;}
-.ph h1{font-family:var(--display);font-size:20px;font-weight:900;color:var(--navy);}
-.ph .sub{font-size:10px;color:var(--text3);margin-top:2px;}
+.ph{padding:calc(var(--st) + 13px) 16px 13px;display:flex;justify-content:space-between;align-items:center;background:#fff;border-bottom:1.5px solid var(--bdr);box-shadow:0 2px 8px rgba(91,79,233,.07);position:sticky;top:0;z-index:40;}
+.ph h1{font-family:var(--disp);font-size:20px;font-weight:900;}
+.ph .sub{font-size:10px;color:var(--t3);margin-top:2px;}
 
-/* BUTTONS */
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:none;border-radius:14px;font-family:var(--font);font-weight:700;font-size:14px;padding:13px 22px;cursor:pointer;transition:all .15s;width:100%;}
-.btn:active{transform:scale(0.97);}:disabled{opacity:.55;cursor:not-allowed;}
-.btn-p{background:linear-gradient(135deg,#5B4FE9,#818CF8);color:#fff;box-shadow:0 4px 14px rgba(91,79,233,0.3);}
-.btn-g{background:linear-gradient(135deg,#059669,#10B981);color:#fff;box-shadow:0 4px 14px rgba(5,150,105,0.25);}
-.btn-ghost{background:var(--card2);border:1.5px solid var(--border2);color:var(--text2);}
+/* BTNS */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:none;border-radius:14px;font-family:var(--font);font-weight:700;font-size:14px;padding:13px 22px;cursor:pointer;transition:transform .15s;width:100%;}
+.btn:active{transform:scale(.97);}
+.btn-p{background:linear-gradient(135deg,#5B4FE9,#818CF8);color:#fff;box-shadow:0 4px 14px rgba(91,79,233,.3);}
+.btn-g{background:linear-gradient(135deg,#059669,#10B981);color:#fff;box-shadow:0 4px 14px rgba(5,150,105,.25);}
+.btn-ghost{background:var(--c2);border:1.5px solid var(--bdr2);color:var(--t2);}
 .btn-sm{padding:8px 14px;font-size:12px;width:auto;}
-.add-btn{background:linear-gradient(135deg,#5B4FE9,#818CF8);border:none;border-radius:10px;color:#fff;font-family:var(--font);font-size:11px;font-weight:700;padding:9px 14px;cursor:pointer;box-shadow:0 4px 12px rgba(91,79,233,0.3);}
-.fab{position:fixed;bottom:calc(var(--nav-h) + var(--safe-bottom) + 14px);right:18px;width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,#5B4FE9,#818CF8);border:none;color:#fff;font-size:22px;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 20px rgba(91,79,233,0.4);z-index:90;cursor:pointer;transition:transform .18s;}
-.fab:active{transform:scale(0.93);}
+.addbtn{background:linear-gradient(135deg,#5B4FE9,#818CF8);border:none;border-radius:10px;color:#fff;font-family:var(--font);font-size:11px;font-weight:700;padding:9px 14px;cursor:pointer;box-shadow:0 4px 12px rgba(91,79,233,.3);}
+.fab{position:fixed;bottom:calc(var(--nh) + var(--sb) + 14px);right:18px;width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,#5B4FE9,#818CF8);border:none;color:#fff;font-size:22px;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 20px rgba(91,79,233,.4);z-index:90;cursor:pointer;}
+.fab:active{transform:scale(.93);}
 
 /* FORM */
 .fg{margin-bottom:14px;}
-.fl{display:block;font-size:10px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px;}
-.fi{width:100%;background:#fff;border:2px solid var(--border2);border-radius:14px;color:var(--navy);font-family:var(--font);font-size:14px;font-weight:600;padding:12px 13px;outline:none;-webkit-appearance:none;transition:border-color .18s;}
-.fi:focus{border-color:var(--purple);}
-.fi::placeholder{color:var(--text3);font-weight:500;}
-.fr{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.fl{display:block;font-size:10px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px;}
+.fi{width:100%;background:#fff;border:2px solid var(--bdr2);border-radius:14px;color:var(--navy);font-family:var(--font);font-size:14px;font-weight:600;padding:12px 13px;outline:none;-webkit-appearance:none;transition:border-color .18s;}
+.fi:focus{border-color:var(--pu);}
+.fi::placeholder{color:var(--t3);font-weight:500;}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+
+/* SIZE BTNS */
+.szg{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:10px;}
+.szb{padding:8px 13px;border-radius:9px;border:2px solid var(--bdr2);background:#fff;color:var(--t2);font-family:var(--font);font-size:12px;font-weight:700;cursor:pointer;}
+.szb.on{border-color:var(--pu);background:var(--pubg);color:var(--pu);}
 
 /* BADGE */
-.badge{display:inline-flex;align-items:center;gap:3px;padding:3px 9px;border-radius:10px;font-size:9px;font-weight:800;white-space:nowrap;}
-.b-f{background:var(--greenbg);color:var(--green);border:1.5px solid #6EE7B7;}
-.b-c{background:var(--purplebg);color:var(--purple);border:1.5px solid #C4BFFF;}
-.b-b{background:var(--redbg);color:var(--red);border:1.5px solid #FCA5A5;}
+.badge{display:inline-flex;align-items:center;gap:3px;padding:3px 9px;border-radius:10px;font-size:9px;font-weight:800;}
+.bf{background:var(--grbg);color:var(--gr);border:1.5px solid #6EE7B7;}
+.bc{background:var(--pubg);color:var(--pu);border:1.5px solid #C4BFFF;}
+.bb{background:var(--rdbg);color:var(--rd);border:1.5px solid #FCA5A5;}
 
 /* MODAL */
-.moverlay{position:fixed;inset:0;background:rgba(15,23,42,0.5);z-index:200;display:flex;align-items:flex-end;backdrop-filter:blur(4px);animation:fadeIn .2s ease;}
-.mbox{background:#fff;width:100%;max-height:94vh;border-radius:24px 24px 0 0;overflow-y:auto;padding-bottom:calc(var(--safe-bottom) + 20px);animation:slideUp .3s cubic-bezier(.32,.72,0,1);}
-.mhandle{width:36px;height:4px;background:var(--border2);border-radius:2px;margin:12px auto 2px;}
-.mhdr{padding:8px 20px 16px;border-bottom:1.5px solid var(--border);display:flex;justify-content:space-between;align-items:center;}
-.mtitle{font-family:var(--display);font-size:18px;font-weight:900;color:var(--navy);}
-.mclose{width:28px;height:28px;border-radius:8px;background:var(--card2);border:1.5px solid var(--border2);color:var(--text2);cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;}
+.mov{position:fixed;inset:0;background:rgba(15,23,42,.55);z-index:200;display:flex;align-items:flex-end;backdrop-filter:blur(4px);}
+.mbox{background:#fff;width:100%;max-height:92vh;border-radius:24px 24px 0 0;overflow-y:auto;padding-bottom:calc(var(--sb) + 20px);animation:slideUp .3s cubic-bezier(.32,.72,0,1);}
+.mh{width:36px;height:4px;background:var(--bdr2);border-radius:2px;margin:12px auto 2px;}
+.mhdr{padding:8px 20px 16px;border-bottom:1.5px solid var(--bdr);display:flex;justify-content:space-between;align-items:center;}
+.mtitle{font-family:var(--disp);font-size:18px;font-weight:900;}
+.mclose{width:28px;height:28px;border-radius:8px;background:var(--c2);border:1.5px solid var(--bdr2);color:var(--t2);cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;}
 .mbody{padding:18px 20px;}
 
 /* TOAST */
-.toast{position:fixed;top:calc(var(--safe-top) + 14px);left:50%;transform:translateX(-50%) translateY(-12px);background:var(--navy);color:#fff;padding:10px 20px;border-radius:20px;font-size:13px;font-weight:700;z-index:999;opacity:0;transition:all .25s;white-space:nowrap;pointer-events:none;box-shadow:0 8px 24px rgba(0,0,0,0.2);}
+.toast{position:fixed;top:calc(var(--st) + 14px);left:50%;transform:translateX(-50%) translateY(-12px);background:var(--navy);color:#fff;padding:10px 20px;border-radius:20px;font-size:13px;font-weight:700;z-index:999;opacity:0;transition:all .25s;white-space:nowrap;pointer-events:none;box-shadow:0 8px 24px rgba(0,0,0,.2);}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
-.toast.s{background:var(--green);}.toast.e{background:var(--red);}
+.ts{background:var(--gr);}.te{background:var(--rd);}
 
-/* STEP DOTS */
+/* DOTS */
 .sdots{display:flex;gap:6px;margin-top:8px;}
-.sdot{height:4px;flex:1;border-radius:2px;background:var(--border2);}
-.sdot.on{background:var(--purple);}.sdot.done{background:var(--green);}
-
-/* SIZE BTNS */
-.szgrid{display:flex;gap:7px;flex-wrap:wrap;}
-.szbtn{padding:8px 13px;border-radius:9px;border:2px solid var(--border2);background:#fff;color:var(--text2);font-family:var(--font);font-size:12px;font-weight:700;cursor:pointer;transition:all .15s;}
-.szbtn.on{border-color:var(--purple);background:var(--purplebg);color:var(--purple);}
+.sd{height:4px;flex:1;border-radius:2px;background:var(--bdr2);}
+.sd.on{background:var(--pu);}.sd.done{background:var(--gr);}
 
 /* FILTERS */
-.frow{display:flex;gap:6px;padding:8px 16px;overflow-x:auto;scrollbar-width:none;}
-.frow::-webkit-scrollbar{display:none;}
-.fpill{flex-shrink:0;border:1.5px solid var(--border2);border-radius:20px;padding:5px 12px;font-size:10px;font-weight:700;color:var(--text3);background:#fff;cursor:pointer;white-space:nowrap;}
-.fpill.on{border-color:var(--purple);color:var(--purple);background:var(--purplebg);}
+.frow2{display:flex;gap:6px;padding:8px 16px;overflow-x:auto;scrollbar-width:none;}
+.frow2::-webkit-scrollbar{display:none;}
+.fpill{flex-shrink:0;border:1.5px solid var(--bdr2);border-radius:20px;padding:5px 12px;font-size:10px;font-weight:700;color:var(--t3);background:#fff;cursor:pointer;}
+.fpill.on{border-color:var(--pu);color:var(--pu);background:var(--pubg);}
 
 /* HSCROLL */
-.hscroll{display:flex;gap:10px;padding:0 16px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;}
-.hscroll::-webkit-scrollbar{display:none;}
+.hs{display:flex;gap:10px;padding:0 16px;overflow-x:auto;scrollbar-width:none;}
+.hs::-webkit-scrollbar{display:none;}
 
 /* SECTION HDR */
 .shdr{display:flex;justify-content:space-between;align-items:center;padding:13px 16px 7px;}
-.shdr .st{font-size:13px;font-weight:800;color:var(--navy);}
-.shdr .sl{font-size:11px;font-weight:700;color:var(--purple);cursor:pointer;background:none;border:none;}
+.shdr .st{font-size:13px;font-weight:800;}
+.shdr .sl{font-size:11px;font-weight:700;color:var(--pu);background:none;border:none;cursor:pointer;}
 
 /* RULE ROW */
-.rrow{display:flex;align-items:center;gap:9px;background:var(--card2);border:1.5px solid var(--border);border-radius:10px;padding:9px 11px;margin-bottom:7px;}
-.rrow:last-child{margin-bottom:0;}
-.ri2{font-size:14px;flex-shrink:0;width:22px;text-align:center;}
-.rb2{flex:1;min-width:0;}.rn{font-size:10px;font-weight:700;color:var(--navy);margin-bottom:1px;}.rv{font-size:9px;color:var(--text2);}
-.rdot{width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:800;flex-shrink:0;}
-.dok{background:var(--greenbg);color:var(--green);border:1.5px solid #6EE7B7;}
-.dwarn{background:var(--amberbg);color:var(--amber);border:1.5px solid #FCD34D;}
-.dbad{background:var(--redbg);color:var(--red);border:1.5px solid #FCA5A5;}
+.rr{display:flex;align-items:center;gap:9px;background:var(--c2);border:1.5px solid var(--bdr);border-radius:10px;padding:9px 11px;margin-bottom:7px;}
+.ri{font-size:14px;flex-shrink:0;width:22px;text-align:center;}
+.rb{flex:1;min-width:0;}.rn{font-size:10px;font-weight:700;margin-bottom:1px;}.rv{font-size:9px;color:var(--t2);}
 
 /* INSIGHT */
 .ins{display:flex;align-items:flex-start;gap:10px;padding:11px 13px;border-radius:12px;border-left:4px solid;margin-bottom:8px;}
 .ins p{font-size:11px;font-weight:600;line-height:1.5;}
-.ig{background:var(--greenbg);border-color:#6EE7B7;}.ig p{color:var(--green);}
-.iw{background:var(--amberbg);border-color:#FCD34D;}.iw p{color:var(--amber);}
-.ii{background:var(--purplebg);border-color:#C4BFFF;}.ii p{color:var(--purple);}
+.ig{background:var(--grbg);border-color:#6EE7B7;}.ig p{color:var(--gr);}
+.iw{background:var(--ambg);border-color:#FCD34D;}.iw p{color:var(--am);}
+.ii{background:var(--pubg);border-color:#C4BFFF;}.ii p{color:var(--pu);}
 
-/* PROG */
-.ptrack{height:8px;background:var(--border);border-radius:4px;overflow:hidden;}
-.pfill{height:100%;border-radius:4px;background:linear-gradient(90deg,#5B4FE9,#059669);transition:width .8s ease;}
-
-/* GROUP LABEL */
+/* GROUP LBL */
 .glbl{padding:9px 16px 5px;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;}
 
 /* EMPTY */
 .empty{text-align:center;padding:52px 24px;}
-.empty .ei{font-size:52px;margin-bottom:14px;}
-.empty h3{font-size:18px;font-weight:800;color:var(--navy);margin-bottom:8px;}
-.empty p{font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:20px;}
+.ei{font-size:52px;margin-bottom:14px;}
+.empty h3{font-size:18px;font-weight:800;margin-bottom:8px;}
+.empty p{font-size:13px;color:var(--t2);line-height:1.6;margin-bottom:20px;}
 
-/* SPINNER */
-.spin{width:20px;height:20px;border:2.5px solid rgba(255,255,255,0.35);border-top-color:#fff;border-radius:50%;animation:spin .65s linear infinite;display:inline-block;}
-.spind{border-color:rgba(91,79,233,0.3);border-top-color:var(--purple);}
+/* SPIN */
+.spin{width:20px;height:20px;border:2.5px solid rgba(255,255,255,.35);border-top-color:#fff;border-radius:50%;animation:spin .65s linear infinite;display:inline-block;}
+.spd{border-color:rgba(91,79,233,.3);border-top-color:var(--pu);}
 
-@keyframes fadeIn{from{opacity:0}to{opacity:1}}
 @keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
 @keyframes spin{to{transform:rotate(360deg)}}
-@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
-.fu{animation:fadeUp .3s ease both;}
+@keyframes fu{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.fu{animation:fu .3s ease both;}
 </style>
 </head>
 <body>
 <div id="toast" class="toast"></div>
 <div id="app"></div>
-
 <script type="module">
-// ── SUPABASE ─────────────────────────────────────────────────────
-import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm'
+import{createClient}from'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm'
 
-const sb = createClient(
+const sb=createClient(
   'https://hqkersneaenyutrxsilj.supabase.co',
   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imhxa2Vyc25lYWVueXV0cnhzaWxqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU3NDI2NjAsImV4cCI6MjA5MTMxODY2MH0.LMXgzHZj94bJpadBGxmcTP66ovc_uCHMY1LZrNxJjJk'
 )
 
-// ── CONSTANTS ────────────────────────────────────────────────────
-const FIRMS = ['FTMO','Alpha Capital','Funding Pips','GOAT Funded Trader','Blueberry Funded','Lark Funding','Ment Funding','Aqua Funded','Funded Elite','The 5%ers','FundedNext','True Forex Funds','E8 Funding','Apex Trader Funding','Topstep','Hola Prime','My Funded FX','Nordic Funder','Blue Guardian','City Traders Imperium','Other (Custom)']
-const SIZES = [{l:'$5K',v:5000},{l:'$10K',v:10000},{l:'$25K',v:25000},{l:'$50K',v:50000},{l:'$100K',v:100000},{l:'$200K',v:200000},{l:'Custom',v:'c'}]
-const STATUSES = ['Challenge','Funded','Breached']
-const SM = {Funded:{c:'#059669',bg:'#ECFDF5',bc:'#6EE7B7',e:'✅'},Challenge:{c:'#5B4FE9',bg:'#EEF0FF',bc:'#C4BFFF',e:'⏳'},Breached:{c:'#DC2626',bg:'#FEF2F2',bc:'#FCA5A5',e:'❌'}}
-const RTPL = [{n:'Daily Drawdown',i:'📉',p:'e.g. Max 5% per day'},{n:'Max Drawdown',i:'📊',p:'e.g. Max 10% (static)'},{n:'Profit Target',i:'🎯',p:'e.g. 10% Phase 1, 5% Phase 2'},{n:'Min Trading Days',i:'📅',p:'e.g. Minimum 5 days'},{n:'News Trading',i:'📰',p:'e.g. Restricted 2min buffer'},{n:'Weekend Holding',i:'🕐',p:'e.g. Not allowed'},{n:'Consistency Rule',i:'🔄',p:'e.g. No day > 40% profit'},{n:'EA / Bots',i:'🤖',p:'e.g. Allowed, own strategy only'}]
+// ── CONSTANTS ──────────────────────────────────────────────────
+const FIRMS=['FTMO','Alpha Capital','Funding Pips','GOAT Funded Trader','Blueberry Funded','Lark Funding','Ment Funding','Aqua Funded','Funded Elite','The 5%ers','FundedNext','True Forex Funds','E8 Funding','Apex Trader Funding','Topstep','Hola Prime','My Funded FX','Nordic Funder','Blue Guardian','City Traders Imperium','Other (type name below)']
+const SIZES=[{l:'$5K',v:5000},{l:'$10K',v:10000},{l:'$25K',v:25000},{l:'$50K',v:50000},{l:'$100K',v:100000},{l:'$200K',v:200000},{l:'Custom',v:0}]
+const SM={Funded:{c:'#059669',bg:'#ECFDF5',bc:'#6EE7B7',e:'✅'},Challenge:{c:'#5B4FE9',bg:'#EEF0FF',bc:'#C4BFFF',e:'⏳'},Breached:{c:'#DC2626',bg:'#FEF2F2',bc:'#FCA5A5',e:'❌'}}
+const RTPL=[{n:'Daily Drawdown',i:'📉',p:'e.g. Max 5% per day'},{n:'Max Drawdown',i:'📊',p:'e.g. Max 10% static'},{n:'Profit Target',i:'🎯',p:'e.g. 10% Phase 1'},{n:'Min Trading Days',i:'📅',p:'e.g. Minimum 5 days'},{n:'News Trading',i:'📰',p:'e.g. Restricted 2min buffer'},{n:'Weekend Holding',i:'🕐',p:'e.g. Not allowed'},{n:'Consistency Rule',i:'🔄',p:'e.g. No day > 40% profit'},{n:'EA / Bots',i:'🤖',p:'e.g. Allowed, own strategy'}]
 
-// ── STATE ────────────────────────────────────────────────────────
-let S = {session:null,profile:null,accounts:[],goals:[],milestones:[],tab:'dash',loading:true,modal:null}
-
-const fmt = v => {if(!v&&v!==0)return'$0';const n=Number(v);if(n>=1e6)return`$${(n/1e6).toFixed(2)}M`;if(n>=1e3)return`$${(n/1e3).toFixed(1)}K`;return`$${n.toLocaleString()}`}
-const fmtD = d => {if(!d)return'—';const p=d.split('-');const mo=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];return`${mo[parseInt(p[1])-1]} ${p[2]}, ${p[0]}`}
-
-function toast(msg,type=''){const t=document.getElementById('toast');t.textContent=(type==='s'?'✓ ':type==='e'?'✕ ':'')+msg;t.className='toast show '+(type||'');setTimeout(()=>t.className='toast',2800);}
-
-// ── SUPABASE HELPERS ─────────────────────────────────────────────
-async function loadData(){
-  if(!S.session)return
-  const uid=S.session.user.id
-  try{
-    const [p,a,g,m]=await Promise.all([
-      sb.from('profiles').select('*').eq('id',uid).single(),
-      sb.from('accounts').select('*,rules(*),payouts(*)').eq('user_id',uid).order('created_at',{ascending:false}),
-      sb.from('goals').select('*').eq('user_id',uid),
-      sb.from('milestones').select('*').eq('user_id',uid).order('created_at')
-    ])
-    if(p.data)S.profile=p.data
-    if(a.data)S.accounts=a.data
-    if(g.data)S.goals=g.data
-    if(m.data)S.milestones=m.data
-  }catch(e){console.error(e)}
-  S.loading=false;render()
+// ── STATE ──────────────────────────────────────────────────────
+const APP={
+  session:null, profile:null, accounts:[], goals:[], milestones:[],
+  tab:'dash', loading:true, modal:null, authMode:'register',
+  // add account form — persistent across steps
+  form:{firm:FIRMS[0],customFirm:'',sizeV:10000,sizeL:'$10K',isCustom:false,customSz:'',status:'Challenge',inv:'',notes:'',step:1},
+  rules:RTPL.map(r=>({...r,v:'',on:true})),
+  customRules:[],
+  // other modal state
+  payAccId:null, accFilter:'All', expanded:new Set()
 }
 
-// ── STATS ────────────────────────────────────────────────────────
+// ── HELPERS ────────────────────────────────────────────────────
+const fmt=v=>{if(!v&&v!==0)return'$0';const n=Number(v);if(n>=1e6)return`$${(n/1e6).toFixed(2)}M`;if(n>=1e3)return`$${(n/1e3).toFixed(1)}K`;return`$${n.toLocaleString()}`}
+const fmtD=d=>{if(!d)return'—';const[y,m,day]=d.split('-');return`${['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][+m-1]} ${day}, ${y}`}
+const toast=(msg,t='')=>{const el=document.getElementById('toast');el.textContent=(t==='s'?'✓ ':t==='e'?'✕ ':'')+msg;el.className=`toast show${t?' t'+t:''}`;setTimeout(()=>el.className='toast',2800)}
+const $=id=>document.getElementById(id)
+
+// ── DATA ───────────────────────────────────────────────────────
+async function loadData(){
+  if(!APP.session)return
+  const uid=APP.session.user.id
+  const[p,a,g,m]=await Promise.all([
+    sb.from('profiles').select('*').eq('id',uid).single(),
+    sb.from('accounts').select('*,rules(*),payouts(*)').eq('user_id',uid).order('created_at',{ascending:false}),
+    sb.from('goals').select('*').eq('user_id',uid),
+    sb.from('milestones').select('*').eq('user_id',uid).order('created_at')
+  ])
+  if(p.data)APP.profile=p.data
+  if(a.data)APP.accounts=a.data
+  if(g.data)APP.goals=g.data
+  if(m.data)APP.milestones=m.data
+  APP.loading=false
+  render()
+}
+
+// ── STATS ──────────────────────────────────────────────────────
 function stats(){
-  const accs=S.accounts
-  const funded=accs.filter(a=>a.status==='Funded')
-  const challenge=accs.filter(a=>a.status==='Challenge')
-  const breached=accs.filter(a=>a.status==='Breached')
-  const totalFunding=funded.reduce((s,a)=>s+(a.size_value||0),0)
-  const totalInv=accs.reduce((s,a)=>s+(a.investment||0),0)
-  const totalPay=accs.reduce((s,a)=>s+(a.payouts||[]).reduce((ps,p)=>ps+(p.amount||0),0),0)
-  const netProfit=totalPay-totalInv
-  const mainGoal=S.goals.find(g=>g.is_main)||{target:150000}
-  const goalPct=Math.min((totalPay/mainGoal.target)*100,100)
-  const allPay=accs.flatMap(a=>(a.payouts||[]).map(p=>({...p,firm:a.firm}))).sort((a,b)=>(b.date||'').localeCompare(a.date||''))
-  const mo={};allPay.forEach(p=>{if(!p.date)return;const k=p.date.slice(0,7);mo[k]=(mo[k]||0)+p.amount})
+  const ac=APP.accounts
+  const funded=ac.filter(a=>a.status==='Funded')
+  const challenge=ac.filter(a=>a.status==='Challenge')
+  const breached=ac.filter(a=>a.status==='Breached')
+  const tFund=funded.reduce((s,a)=>s+(a.size_value||0),0)
+  const tInv=ac.reduce((s,a)=>s+(a.investment||0),0)
+  const tPay=ac.reduce((s,a)=>s+(a.payouts||[]).reduce((p,x)=>p+(x.amount||0),0),0)
+  const mg=APP.goals.find(g=>g.is_main)||{target:150000}
+  const gPct=Math.min((tPay/(mg.target||150000))*100,100)
+  const allP=ac.flatMap(a=>(a.payouts||[]).map(p=>({...p,firm:a.firm}))).sort((a,b)=>(b.date||'').localeCompare(a.date||''))
+  const mo={};allP.forEach(p=>{if(!p.date)return;const k=p.date.slice(0,7);mo[k]=(mo[k]||0)+p.amount})
   const monthly=Object.entries(mo).sort().slice(-8).map(([k,v])=>({k,v}))
-  const fp={};accs.forEach(a=>{const pay=(a.payouts||[]).reduce((s,p)=>s+(p.amount||0),0);fp[a.firm]=(fp[a.firm]||0)+pay})
+  const fp={};ac.forEach(a=>{const pay=(a.payouts||[]).reduce((s,p)=>s+(p.amount||0),0);fp[a.firm]=(fp[a.firm]||0)+pay})
   const lb=Object.entries(fp).filter(([,v])=>v>0).sort((a,b)=>b[1]-a[1]).slice(0,5)
-  // perf
   let perf=null
-  if(accs.length){
-    const tot=accs.length,fc=funded.length,bc=breached.length
-    const wr=fc/tot,roi=totalInv>0?(totalPay-totalInv)/totalInv:0,br=bc/tot
-    const div=Math.min(new Set(accs.map(a=>a.firm)).size*20,100)
+  if(ac.length){
+    const tot=ac.length,fc=funded.length,bc=breached.length
+    const wr=fc/tot,roi=tInv>0?(tPay-tInv)/tInv:0,br=bc/tot
+    const div=Math.min(new Set(ac.map(a=>a.firm)).size*20,100)
     const ws=Math.round(wr*100),rs=Math.min(Math.round(Math.max(roi,0)*150),100)
-    const brs=Math.round(Math.max(0,1-br)*100),ps=Math.min(Math.round((totalPay/(mainGoal.target||150000))*100),100)
+    const brs=Math.round(Math.max(0,1-br)*100),ps=Math.min(Math.round((tPay/(mg.target||150000))*100),100)
     const ov=Math.round((ws+rs+brs+div+ps)/5)
-    const grades=[{min:90,g:'S',l:'Elite Trader'},{min:75,g:'A',l:'Strong Trader'},{min:60,g:'B',l:'Good Progress'},{min:45,g:'C',l:'Developing'},{min:0,g:'D',l:'Needs Work'}]
-    const gd=grades.find(x=>ov>=x.min)||grades[4]
+    const gd=[{min:90,g:'S',l:'Elite Trader'},{min:75,g:'A',l:'Strong Trader'},{min:60,g:'B',l:'Good Progress'},{min:45,g:'C',l:'Developing'},{min:0,g:'D',l:'Needs Work'}].find(x=>ov>=x.min)||{g:'D',l:'Needs Work'}
     perf={ws,rs,brs,div,ps,ov,g:gd.g,l:gd.l,wr,roi,br}
   }
-  return{accs,funded,challenge,breached,totalFunding,totalInv,totalPay,netProfit,mainGoal,goalPct,allPay,monthly,lb,perf,breachRate:accs.length?Math.round(breached.length/accs.length*100):0}
+  return{ac,funded,challenge,breached,tFund,tInv,tPay,netP:tPay-tInv,mg,gPct,allP,monthly,lb,perf,bRate:ac.length?Math.round(breached.length/ac.length*100):0}
 }
 
-// ── RENDER ────────────────────────────────────────────────────────
+// ── RENDER ROOT ────────────────────────────────────────────────
 function render(){
-  const app=document.getElementById('app')
-  if(!S.session){app.innerHTML=renderAuth();bindAuth();return}
-  if(S.loading){app.innerHTML=`<div style="height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--bg);gap:16px"><div style="width:56px;height:56px;border-radius:16px;background:linear-gradient(135deg,#5B4FE9,#818CF8);display:flex;align-items:center;justify-content:center;font-size:26px">📈</div><div style="font-family:'Syne',sans-serif;font-size:20px;font-weight:900;color:#0F172A">My Prop Journey</div><div class="spin spind"></div></div>`;return}
+  const app=$('app')
+  if(!APP.session){app.innerHTML=authHTML();bindAuth();return}
+  if(APP.loading){app.innerHTML=loaderHTML();return}
   const st=stats()
-  let page=''
-  if(S.tab==='dash')page=renderDash(st)
-  else if(S.tab==='accs')page=renderAccs(st)
-  else if(S.tab==='add')page=renderAdd()
-  else if(S.tab==='pays')page=renderPays(st)
-  else if(S.tab==='perf')page=renderPerf(st)
-  else if(S.tab==='goals')page=renderGoals(st)
+  let body=''
+  if(APP.tab==='dash')body=dashHTML(st)
+  else if(APP.tab==='accs')body=accsHTML(st)
+  else if(APP.tab==='add')body=addHTML()
+  else if(APP.tab==='pays')body=paysHTML(st)
+  else if(APP.tab==='perf')body=perfHTML(st)
+  else if(APP.tab==='goals')body=goalsHTML(st)
 
   app.innerHTML=`
-    <div class="page fu">${page}</div>
-    ${S.tab!=='add'?`<nav class="bnav">
-      <button class="nbt${S.tab==='dash'?' on':''}" onclick="setTab('dash')"><span class="ni">🏠</span><span class="nl">Home</span></button>
-      <button class="nbt${S.tab==='accs'?' on':''}" onclick="setTab('accs')"><span class="ni">📋</span><span class="nl">Accounts</span></button>
-      <button class="nbt${S.tab==='add'?' on':''}" onclick="setTab('add')"><span class="ni">➕</span><span class="nl">Add</span></button>
-      <button class="nbt${S.tab==='pays'?' on':''}" onclick="setTab('pays')"><span class="ni">💰</span><span class="nl">Payouts</span></button>
-      <button class="nbt${S.tab==='goals'?' on':''}" onclick="setTab('goals')"><span class="ni">🎯</span><span class="nl">Goals</span></button>
-    </nav>`:''}
-    ${S.modal?renderModal():''}
+    <div class="page fu" id="pg">${body}</div>
+    ${APP.tab!=='add'?navHTML():''}
+    ${APP.modal?modalHTML():''}
   `
-  bindPage()
+  bindAll()
 }
 
-window.setTab=t=>{S.tab=t;S.addStep=1;render()}
+const loaderHTML=()=>`<div style="height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--bg);gap:16px"><div style="width:56px;height:56px;border-radius:16px;background:linear-gradient(135deg,#5B4FE9,#818CF8);display:flex;align-items:center;justify-content:center;font-size:26px">📈</div><div style="font-family:var(--disp);font-size:20px;font-weight:900">My Prop Journey</div><div class="spin spd"></div></div>`
 
-// ── AUTH ──────────────────────────────────────────────────────────
-function renderAuth(){
-  const isLogin=S.authMode!=='register'
-  return`<div style="min-height:100vh;overflow:auto;background:var(--bg);padding:0 24px">
-    <div style="text-align:center;padding:52px 0 24px">
-      <div style="width:56px;height:56px;border-radius:16px;background:linear-gradient(135deg,#5B4FE9,#818CF8);display:flex;align-items:center;justify-content:center;font-size:26px;margin:0 auto 16px;box-shadow:0 4px 14px rgba(91,79,233,0.3)">📈</div>
-      <div style="font-family:'Syne',sans-serif;font-size:22px;font-weight:900;color:#0F172A;margin-bottom:4px">My Prop Journey</div>
-      <div style="font-size:13px;color:#94A3B8">${isLogin?'Log in to your account':'Create your free account'}</div>
-    </div>
-    <h2 style="font-family:'Syne',sans-serif;font-size:22px;font-weight:900;color:#0F172A;margin-bottom:20px">${isLogin?'Welcome back':'Start your journey'}</h2>
-    ${!isLogin?`<div class="fg"><label class="fl">Full Name</label><input class="fi" id="auth-name" type="text" placeholder="Your name" autocomplete="name"/></div>`:''}
-    <div class="fg"><label class="fl">Email</label><input class="fi" id="auth-email" type="email" placeholder="you@email.com" autocomplete="email"/></div>
-    <div class="fg"><label class="fl">Password</label><input class="fi" id="auth-pass" type="password" placeholder="${isLogin?'••••••••':'Min. 6 characters'}" autocomplete="${isLogin?'current-password':'new-password'}"/></div>
-    <div id="auth-err" style="font-size:11px;color:var(--red);font-weight:600;margin-bottom:12px;text-align:center;display:none"></div>
-    ${!isLogin?`<div style="background:var(--purplebg);border:1.5px solid #C4BFFF;border-radius:10px;padding:12px;margin-bottom:14px;font-size:11px;color:#5B4FE9;line-height:1.6">✓ Free forever · Track unlimited accounts · No credit card</div>`:''}
-    <button class="btn btn-p" id="auth-btn" style="margin-bottom:14px">${isLogin?'Log In':'Create Free Account'}</button>
-    <p style="text-align:center;font-size:13px;color:#94A3B8;padding-bottom:32px">
-      ${isLogin?`No account? <a href="#" id="auth-switch" style="color:#5B4FE9;font-weight:700">Sign up free</a>`:`Have an account? <a href="#" id="auth-switch" style="color:#5B4FE9;font-weight:700">Log in</a>`}
-    </p>
-  </div>`
-}
+const navHTML=()=>`<nav class="bnav">
+  ${[['dash','🏠','Home'],['accs','📋','Accounts'],['add','➕','Add'],['pays','💰','Payouts'],['goals','🎯','Goals']].map(([t,i,l])=>`<button class="nbt${APP.tab===t?' on':''}" id="nav-${t}"><span class="ni">${i}</span><span class="nl">${l}</span></button>`).join('')}
+</nav>`
+
+// ── AUTH ───────────────────────────────────────────────────────
+const authHTML=()=>`<div style="min-height:100vh;overflow:auto;background:var(--bg);padding:0 24px">
+  <div style="text-align:center;padding:52px 0 24px">
+    <div style="width:56px;height:56px;border-radius:16px;background:linear-gradient(135deg,#5B4FE9,#818CF8);display:flex;align-items:center;justify-content:center;font-size:26px;margin:0 auto 16px;box-shadow:0 4px 14px rgba(91,79,233,.3)">📈</div>
+    <div style="font-family:var(--disp);font-size:22px;font-weight:900;margin-bottom:4px">My Prop Journey</div>
+    <div style="font-size:13px;color:var(--t3)">${APP.authMode==='login'?'Log in to your account':'Create your free account'}</div>
+  </div>
+  <h2 style="font-family:var(--disp);font-size:22px;font-weight:900;margin-bottom:20px">${APP.authMode==='login'?'Welcome back':'Start your journey'}</h2>
+  ${APP.authMode!=='login'?`<div class="fg"><label class="fl">Full Name</label><input class="fi" id="a-name" type="text" placeholder="Your name" autocomplete="name"/></div>`:''}
+  <div class="fg"><label class="fl">Email</label><input class="fi" id="a-email" type="email" placeholder="you@email.com" autocomplete="email"/></div>
+  <div class="fg"><label class="fl">Password</label><input class="fi" id="a-pass" type="password" placeholder="${APP.authMode==='login'?'••••••••':'Min. 6 characters'}" autocomplete="${APP.authMode==='login'?'current-password':'new-password'}"/></div>
+  <div id="a-err" style="font-size:11px;color:var(--rd);font-weight:600;margin-bottom:12px;text-align:center;display:none"></div>
+  ${APP.authMode!=='login'?`<div style="background:var(--pubg);border:1.5px solid #C4BFFF;border-radius:10px;padding:12px;margin-bottom:14px;font-size:11px;color:#5B4FE9;line-height:1.6">✓ Free forever · Track unlimited accounts · No credit card</div>`:''}
+  <button class="btn btn-p" id="a-btn" style="margin-bottom:14px">${APP.authMode==='login'?'Log In':'Create Free Account'}</button>
+  <p style="text-align:center;font-size:13px;color:var(--t3);padding-bottom:32px">
+    ${APP.authMode==='login'?`No account? <a href="#" id="a-sw" style="color:var(--pu);font-weight:700">Sign up free</a>`:`Have an account? <a href="#" id="a-sw" style="color:var(--pu);font-weight:700">Log in</a>`}
+  </p>
+</div>`
 
 function bindAuth(){
-  document.getElementById('auth-switch')?.addEventListener('click',e=>{e.preventDefault();S.authMode=S.authMode==='register'?'login':'register';render()})
-  document.getElementById('auth-btn')?.addEventListener('click',async()=>{
-    const email=document.getElementById('auth-email')?.value?.trim()
-    const pass=document.getElementById('auth-pass')?.value
-    const name=document.getElementById('auth-name')?.value?.trim()
-    const errEl=document.getElementById('auth-err')
-    const btn=document.getElementById('auth-btn')
-    if(!email||!pass){errEl.textContent='Please fill in all fields';errEl.style.display='block';return}
-    if(S.authMode==='register'&&pass.length<6){errEl.textContent='Password must be at least 6 characters';errEl.style.display='block';return}
+  $('a-sw')?.addEventListener('click',e=>{e.preventDefault();APP.authMode=APP.authMode==='login'?'register':'login';render()})
+  $('a-btn')?.addEventListener('click',async()=>{
+    const email=$('a-email')?.value?.trim()
+    const pass=$('a-pass')?.value
+    const name=$('a-name')?.value?.trim()
+    const err=$('a-err'),btn=$('a-btn')
+    if(!email||!pass){err.textContent='Please fill in all fields';err.style.display='block';return}
+    if(APP.authMode!=='login'&&pass.length<6){err.textContent='Password needs at least 6 characters';err.style.display='block';return}
     btn.innerHTML='<div class="spin"></div>';btn.disabled=true
-    if(S.authMode==='register'){
-      const{error}=await sb.auth.signUp({email,password:pass,options:{data:{full_name:name}}})
-      if(error){errEl.textContent=error.message;errEl.style.display='block';btn.innerHTML='Create Free Account';btn.disabled=false}
-      else{toast('Account created! Check your email ✓','s');S.authMode='login';render()}
+    if(APP.authMode!=='login'){
+      const{error}=await sb.auth.signUp({email,password:pass,options:{data:{full_name:name||''}}})
+      if(error){err.textContent=error.message;err.style.display='block';btn.innerHTML='Create Free Account';btn.disabled=false}
+      else{toast('Account created! Check your email to confirm.','s');APP.authMode='login';render()}
     }else{
       const{error}=await sb.auth.signInWithPassword({email,password:pass})
-      if(error){errEl.textContent=error.message;errEl.style.display='block';btn.innerHTML='Log In';btn.disabled=false}
+      if(error){err.textContent=error.message;err.style.display='block';btn.innerHTML='Log In';btn.disabled=false}
       else toast('Welcome back! 👋','s')
     }
   })
 }
 
-// ── DASHBOARD ────────────────────────────────────────────────────
-function renderDash(st){
-  const{accs,funded,challenge,breached,totalFunding,totalPay,netProfit,mainGoal,goalPct,monthly,lb,totalInv,breachRate}=st
-  const name=S.profile?.full_name?.split(' ')[0]||'Trader'
-  const r=32,circ=2*Math.PI*r,used=(Math.min(goalPct,100)/100)*circ
+// ── DASHBOARD ─────────────────────────────────────────────────
+function dashHTML(st){
+  const{ac,funded,challenge,breached,tFund,tPay,netP,mg,gPct,monthly,lb,tInv,bRate}=st
+  const name=APP.profile?.full_name?.split(' ')[0]||'Trader'
+  const r=32,circ=2*Math.PI*r,used=(Math.min(gPct,100)/100)*circ
   return`
-  <div style="padding:calc(var(--safe-top) + 13px) 16px 0;display:flex;justify-content:space-between;align-items:center">
-    <div><div style="font-size:10px;color:#94A3B8;font-weight:600">Good day 👋</div><div style="font-family:'Syne',sans-serif;font-size:19px;font-weight:900;color:#0F172A">${name}</div></div>
-    <div style="width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,#5B4FE9,#818CF8);display:flex;align-items:center;justify-content:center;font-size:17px;box-shadow:0 4px 12px rgba(91,79,233,0.3)">🧑‍💼</div>
-  </div>
-
-  <div style="margin:13px 16px 0;background:linear-gradient(145deg,#5B4FE9,#4338CA,#3730A3);border-radius:24px;padding:18px;box-shadow:0 8px 28px rgba(91,79,233,0.35);position:relative;overflow:hidden">
-    <div style="position:absolute;top:-30px;right:-30px;width:100px;height:100px;background:rgba(255,255,255,0.07);border-radius:50%"></div>
-    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px">
-      <div>
-        <div style="font-size:9px;font-weight:700;color:rgba(255,255,255,0.6);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:5px">Combined Payouts · All Firms</div>
-        <div style="font-family:'Syne',sans-serif;font-size:30px;font-weight:900;color:#fff;line-height:1">${fmt(totalPay)}</div>
-        <div style="font-size:11px;font-weight:700;color:#A5F3D4;margin-top:5px">${goalPct>=100?'🎉 Goal reached!':'▲ '+fmt(Math.max((mainGoal.target||150000)-totalPay,0))+' to reach '+fmt(mainGoal.target||150000)}</div>
-      </div>
-      <div style="position:relative;width:76px;height:76px;flex-shrink:0">
-        <svg width="76" height="76" style="transform:rotate(-90deg)">
-          <circle cx="38" cy="38" r="${r}" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="8"/>
-          <circle cx="38" cy="38" r="${r}" fill="none" stroke="url(#rg)" stroke-width="8" stroke-dasharray="${used} ${circ}" stroke-linecap="round"/>
-          <defs><linearGradient id="rg" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#A5F3D4"/><stop offset="100%" stop-color="#6EE7B7"/></linearGradient></defs>
-        </svg>
-        <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center">
-          <span style="font-size:13px;font-weight:900;color:#fff">${Math.round(goalPct)}%</span>
-          <span style="font-size:7px;color:rgba(255,255,255,0.6);font-weight:600">goal</span>
-        </div>
-      </div>
-    </div>
-    ${lb.length?`
-    <div style="display:flex;gap:3px;height:8px;border-radius:4px;overflow:hidden;margin-bottom:6px">
-      ${lb.map(([,v],i)=>{const ops=['rgba(255,255,255,0.9)','rgba(255,255,255,0.65)','rgba(255,255,255,0.42)','rgba(255,255,255,0.25)','rgba(255,255,255,0.15)'];return`<div style="flex:${v};background:${ops[i]||ops[4]};border-radius:2px"></div>`}).join('')}
-      <div style="flex:${Math.max((mainGoal.target||150000)-totalPay,0)};background:rgba(255,255,255,0.1);border-radius:2px"></div>
-    </div>
-    <div style="display:flex;flex-wrap:wrap;gap:8px">
-      ${lb.slice(0,3).map(([name,v],i)=>{const ops=['rgba(255,255,255,0.9)','rgba(255,255,255,0.65)','rgba(255,255,255,0.42)'];return`<div style="display:flex;align-items:center;gap:4px"><div style="width:7px;height:7px;border-radius:50%;background:${ops[i]}"></div><span style="font-size:9px;color:rgba(255,255,255,0.7);font-weight:600">${name.split(' ')[0]} ${fmt(v)}</span></div>`}).join('')}
-    </div>`:''}
-  </div>
-
-  <div style="display:flex;gap:9px;padding:13px 16px 0;overflow-x:auto;scrollbar-width:none">
-    ${[{n:funded.length,l:'Funded',bg:'#ECFDF5',bc:'#6EE7B7',c:'#059669'},{n:challenge.length,l:'Challenge',bg:'#EEF0FF',bc:'#C4BFFF',c:'#5B4FE9'},{n:breached.length,l:'Breached',bg:'#FEF2F2',bc:'#FCA5A5',c:'#DC2626'},{n:accs.length,l:'Total',bg:'#fff',bc:'#C8D4F0',c:'#475569'}].map(s=>`
-    <div style="flex-shrink:0;background:${s.bg};border:1.5px solid ${s.bc};border-radius:14px;padding:10px 14px;display:flex;flex-direction:column;align-items:center;gap:3px;box-shadow:0 2px 8px rgba(0,0,0,0.05)">
-      <span style="font-size:22px;font-weight:900;line-height:1;color:${s.c}">${s.n}</span>
-      <span style="font-size:8px;font-weight:700;color:#94A3B8;letter-spacing:.5px">${s.l}</span>
-    </div>`).join('')}
-  </div>
-
-  <div class="shdr" style="padding-top:14px"><span class="st">📊 All Accounts <span style="color:#94A3B8;font-weight:600">(${accs.length})</span></span><button class="sl" onclick="setTab('accs')">View all →</button></div>
-  ${accs.length===0?`<div style="margin:0 16px;background:#fff;border:2px dashed #C4BFFF;border-radius:18px;padding:28px 20px;text-align:center"><div style="font-size:36px;margin-bottom:10px">🏢</div><div style="font-family:'Syne',sans-serif;font-size:15px;font-weight:800;color:#0F172A;margin-bottom:6px">No accounts yet</div><p style="font-size:12px;color:#94A3B8;margin-bottom:14px">Tap + to log your first prop firm account</p><button class="btn btn-p btn-sm" onclick="setTab('add')">+ Add First Account</button></div>`:`
-  <div class="hscroll" style="padding-bottom:6px">
-    ${accs.map(a=>{const m=SM[a.status]||SM.Challenge;const pay=(a.payouts||[]).reduce((s,p)=>s+(p.amount||0),0);const gbg=a.status==='Funded'?'linear-gradient(160deg,#fff,#F0FDF9)':a.status==='Breached'?'linear-gradient(160deg,#fff,#FFF5F5)':'linear-gradient(160deg,#fff,#F5F3FF)';return`
-    <div onclick="setTab('accs')" style="min-width:148px;flex-shrink:0;border-radius:18px;padding:14px;border:2px solid ${m.bc};cursor:pointer;background:${gbg};box-shadow:0 3px 12px rgba(0,0,0,0.07)">
-      <div style="width:34px;height:34px;border-radius:10px;background:${m.bg};display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;margin-bottom:9px;font-family:'Syne',sans-serif;color:${m.c}">${a.firm.charAt(0)}</div>
-      <div style="font-size:12px;font-weight:800;color:#0F172A;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:1px">${a.firm}</div>
-      <div style="font-size:9px;color:#94A3B8;font-weight:600;margin-bottom:8px">${a.size_label||'Account'}</div>
-      <div style="font-size:16px;font-weight:900;color:${pay>0?'#059669':a.status==='Breached'?'#DC2626':'#5B4FE9'};margin-bottom:5px">${pay>0?fmt(pay):a.status==='Challenge'?'In Progress':'—'}</div>
-      <span class="badge b-${a.status.toLowerCase().charAt(0)+(a.status==='Funded'?'':'c'===a.status.toLowerCase().charAt(1)?'c':'b')}">${m.e} ${a.status}</span>
-    </div>`}).join('')}
-  </div>`}
-
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:13px 16px 0">
-    ${[{l:'Active Funding',v:fmt(totalFunding),s:`${funded.length} funded`,c:'#5B4FE9'},{l:'Net Profit',v:`${netProfit>=0?'+':'−'}${fmt(Math.abs(netProfit))}`,s:netProfit>=0?'Profitable':'In loss',c:netProfit>=0?'#059669':'#DC2626'},{l:'Fees Invested',v:fmt(totalInv),s:`${accs.length} accounts`,c:'#0284C7'},{l:'Breach Rate',v:`${breachRate}%`,s:`${breached.length} breached`,c:breached.length?'#DC2626':'#059669'}].map(s=>`
-    <div style="background:#fff;border:1.5px solid var(--border);border-top:4px solid ${s.c};border-radius:16px;padding:13px;box-shadow:0 2px 8px rgba(0,0,0,0.05)">
-      <div style="font-size:8px;font-weight:700;color:#94A3B8;text-transform:uppercase;letter-spacing:1px;margin-bottom:5px">${s.l}</div>
-      <div style="font-size:21px;font-weight:900;line-height:1;color:${s.c};margin-bottom:2px">${s.v}</div>
-      <div style="font-size:10px;font-weight:700;color:${s.c}">${s.s}</div>
-    </div>`).join('')}
-  </div>
-
-  ${lb.length?`
-  <div class="shdr" style="padding-top:14px"><span class="st">🏆 Firm Leaderboard</span></div>
-  <div style="margin:0 16px 14px;background:#fff;border:1.5px solid var(--border);border-radius:18px;padding:16px;box-shadow:0 2px 8px rgba(0,0,0,0.05)">
-    ${lb.map(([name,v],i)=>{const cols=['#5B4FE9','#059669','#D97706','#0284C7','#DC2626'];const mx=lb[0][1];const medals=['🥇','🥈','🥉','4️⃣','5️⃣'];return`
-    <div style="display:flex;align-items:center;gap:9px;margin-bottom:${i<lb.length-1?10:0}px">
-      <span style="width:20px;font-size:14px;text-align:center;flex-shrink:0">${medals[i]}</span>
-      <div style="width:9px;height:9px;border-radius:50%;background:${cols[i]};flex-shrink:0"></div>
-      <span style="font-size:12px;font-weight:700;color:#0F172A;flex:1">${name}</span>
-      <div style="width:64px;height:7px;background:var(--border);border-radius:4px;overflow:hidden;flex-shrink:0"><div style="height:100%;width:${(v/mx)*100}%;background:${cols[i]};border-radius:4px"></div></div>
-      <span style="font-size:12px;font-weight:800;color:${cols[i]};width:44px;text-align:right;flex-shrink:0">${fmt(v)}</span>
-    </div>`}).join('')}
-  </div>`:'<div style="height:14px"></div>'}
-
-  <button class="fab" onclick="setTab('add')">+</button>
-  `
-}
-
-// ── ACCOUNTS ─────────────────────────────────────────────────────
-let accFilter='All'
-function renderAccs(st){
-  const{accs}=st
-  const filtered=accFilter==='All'?accs:accs.filter(a=>a.status===accFilter)
-  return`
-  <div class="ph"><div><h1>Accounts</h1><div class="sub">${accs.length} total · ${new Set(accs.map(a=>a.firm)).size} firms</div></div><button class="add-btn" onclick="setTab('add')">+ Add</button></div>
-  <div class="frow">
-    ${['All','Funded','Challenge','Breached'].map(f=>`<button class="fpill${accFilter===f?' on':''}" onclick="setAccFilter('${f}')">${f==='All'?'All ('+accs.length+')':f==='Funded'?'✅ Funded ('+accs.filter(a=>a.status===f).length+')':f==='Challenge'?'⏳ Challenge ('+accs.filter(a=>a.status===f).length+')':'❌ Breached ('+accs.filter(a=>a.status===f).length+')'}</button>`).join('')}
-  </div>
-  ${filtered.length===0?`<div class="empty"><div class="ei">📋</div><h3>${accs.length===0?'No accounts yet':'No accounts match'}</h3><p>${accs.length===0?'Add your first prop firm account':'Try a different filter'}</p>${accs.length===0?'<button class="btn btn-p btn-sm" onclick="setTab(\'add\')">+ Add Account</button>':''}</div>`:''}
-  ${['Funded','Challenge','Breached'].map(status=>{
-    const group=filtered.filter(a=>a.status===status)
-    if(!group.length)return''
-    const m=SM[status]
-    return`<div class="glbl" style="color:${m.c}">${m.e} ${status.toUpperCase()} · ${group.length} ACCOUNT${group.length!==1?'S':''}</div>
-    ${group.map(a=>renderAccCard(a)).join('')}`
-  }).join('')}
-  <button class="fab" onclick="setTab('add')">+</button>
-  `
-}
-window.setAccFilter=f=>{accFilter=f;render()}
-
-function renderAccCard(a){
-  const m=SM[a.status]||SM.Challenge
-  const pay=(a.payouts||[]).reduce((s,p)=>s+(p.amount||0),0)
-  const inv=a.investment||0
-  const expanded=expandedAccs.has(a.id)
-  return`
-  <div style="margin:0 16px 10px;background:#fff;border:2px solid ${m.bc};border-top:4px solid ${m.c};border-radius:20px;overflow:hidden;box-shadow:0 3px 12px rgba(0,0,0,0.07)">
-    <div onclick="toggleAcc('${a.id}')" style="padding:13px 14px;display:flex;align-items:center;gap:11px;cursor:pointer">
-      <div style="width:44px;height:44px;border-radius:13px;background:${m.bg};display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:900;flex-shrink:0;font-family:'Syne',sans-serif;color:${m.c}">${a.firm.charAt(0)}</div>
-      <div style="flex:1;min-width:0">
-        <div style="font-size:14px;font-weight:800;color:#0F172A;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${a.firm}</div>
-        <div style="font-size:11px;color:#475569;margin-top:2px">${a.size_label} · ${(a.payouts||[]).length} payout${(a.payouts||[]).length!==1?'s':''}</div>
-      </div>
-      <div style="text-align:right;flex-shrink:0">
-        <div style="font-size:16px;font-weight:900;color:${pay>0?'#059669':a.status==='Breached'?'#DC2626':'#94A3B8'}">${pay>0?fmt(pay):'—'}</div>
-        <span class="badge b-${a.status==='Funded'?'f':a.status==='Challenge'?'c':'b'}" style="margin-top:3px;display:inline-block">${m.e} ${a.status}</span>
-      </div>
-    </div>
-    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;border-top:1.5px solid var(--border)">
-      ${[{l:'Invested',v:`$${inv.toLocaleString()}`,c:'#475569'},{l:'Net P&L',v:`${pay-inv>=0?'+':'−'}${fmt(Math.abs(pay-inv))}`,c:pay-inv>=0?'#059669':'#DC2626'},{l:'ROI',v:inv>0?`${Math.round(((pay-inv)/inv)*100)}%`:'—',c:pay-inv>=0?'#059669':'#DC2626'}].map(s=>`
-      <div style="padding:9px 10px;text-align:center;border-right:1.5px solid var(--border)">
-        <div style="font-size:7px;font-weight:700;color:#94A3B8;text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px">${s.l}</div>
-        <div style="font-size:13px;font-weight:900;color:${s.c}">${s.v}</div>
-      </div>`).join('')}
-    </div>
-    ${expanded?`
-    ${(a.rules||[]).length?`<div style="border-top:1.5px solid var(--border);padding:12px 14px">
-      <div style="font-size:9px;font-weight:700;color:#94A3B8;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:9px">Account Rules</div>
-      ${(a.rules||[]).map(r=>`<div class="rrow"><span class="ri2">📋</span><div class="rb2"><div class="rn">${r.rule_name}</div><div class="rv">${r.rule_value}</div></div></div>`).join('')}
-    </div>`:''}
-    <div style="border-top:1.5px solid var(--border);padding:12px 14px">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:9px">
-        <div style="font-size:9px;font-weight:700;color:#94A3B8;letter-spacing:1.5px;text-transform:uppercase">Payouts (${(a.payouts||[]).length})</div>
-        <button onclick="openPayModal('${a.id}')" style="background:var(--greenbg);border:1.5px solid #6EE7B7;border-radius:8px;color:var(--green);font-size:10px;font-weight:700;padding:4px 10px;cursor:pointer">+ Add</button>
-      </div>
-      ${(a.payouts||[]).length===0?'<div style="font-size:12px;color:#94A3B8;text-align:center;padding:10px 0">No payouts yet</div>':
-      (a.payouts||[]).map(p=>`
-      <div style="display:flex;align-items:center;gap:10px;background:var(--card2);border:1.5px solid var(--border);border-left:3px solid var(--green);border-radius:10px;padding:9px 11px;margin-bottom:6px">
-        <div style="flex:1"><div style="font-size:14px;font-weight:900;color:var(--green)">+$${Number(p.amount).toLocaleString()}</div><div style="font-size:10px;color:#94A3B8;margin-top:1px">${fmtD(p.date)}${p.note?' · '+p.note:''}</div></div>
-        <button onclick="delPayout('${p.id}')" style="background:none;border:none;color:#FCA5A5;font-size:16px;cursor:pointer;padding:4px">✕</button>
-      </div>`).join('')}
-    </div>`:''}
-    <div style="display:flex;gap:8px;padding:10px 14px;border-top:1.5px solid var(--border);background:var(--card2)">
-      <button onclick="openPayModal('${a.id}')" style="flex:1;background:var(--greenbg);border:1.5px solid #6EE7B7;border-radius:9px;color:var(--green);font-family:var(--font);font-size:11px;font-weight:700;padding:9px;cursor:pointer">💰 Add Payout</button>
-      <button onclick="delAcc('${a.id}')" style="flex:1;background:var(--redbg);border:1.5px solid #FCA5A5;border-radius:9px;color:var(--red);font-family:var(--font);font-size:11px;font-weight:700;padding:9px;cursor:pointer">🗑 Delete</button>
-    </div>
-  </div>`
-}
-
-const expandedAccs=new Set()
-window.toggleAcc=id=>{if(expandedAccs.has(id))expandedAccs.delete(id);else expandedAccs.add(id);render()}
-window.delAcc=async id=>{if(!confirm('Delete this account?'))return;await sb.from('accounts').delete().eq('id',id);toast('Deleted','s');await loadData()}
-window.delPayout=async id=>{await sb.from('payouts').delete().eq('id',id);toast('Removed','s');await loadData()}
-
-// ── ADD ACCOUNT ───────────────────────────────────────────────────
-let addStep=1,addData={firm:FIRMS[0],customFirm:'',sizeV:10000,sizeL:'$10K',isCustomSz:false,customSz:'',status:'Challenge',inv:'',notes:''},addRules=RTPL.map(t=>({...t,v:'',on:true})),addCustomRules=[]
-
-function renderAdd(){
-  return`
-  <div style="min-height:100vh;background:var(--bg);padding-bottom:32px">
-    <div style="background:#fff;padding:calc(var(--safe-top) + 13px) 16px 13px;border-bottom:1.5px solid var(--border);box-shadow:0 2px 8px rgba(91,79,233,0.07);position:sticky;top:0;z-index:40">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
-        <div><div style="font-family:'Syne',sans-serif;font-size:18px;font-weight:900;color:#0F172A">${addStep===1?'Account Details':addStep===2?'Log Account Rules':'Review & Save'}</div><div style="font-size:10px;color:#94A3B8;margin-top:1px">Step ${addStep} of 3</div></div>
-        <button onclick="setTab('accs')" style="background:var(--card2);border:1.5px solid var(--border2);border-radius:10px;color:#94A3B8;font-size:13px;font-weight:700;padding:7px 12px;cursor:pointer">✕</button>
-      </div>
-      <div class="sdots">${[1,2,3].map(n=>`<div class="sdot${n<addStep?' done':n===addStep?' on':''}"></div>`).join('')}</div>
-    </div>
-    <div style="padding:16px 16px 0">
-    ${addStep===1?renderAdd1():addStep===2?renderAdd2():renderAdd3()}
-    </div>
-  </div>`
-}
-
-function renderAdd1(){
-  return`
-  <div class="fg"><label class="fl">Prop Firm</label>
-    <select class="fi" id="a-firm" onchange="addData.firm=this.value;render()">
-      ${FIRMS.map(f=>`<option${addData.firm===f?' selected':''}>${f}</option>`).join('')}
-    </select>
-  </div>
-  ${addData.firm==='Other (Custom)'?`<div class="fg"><label class="fl">Firm Name</label><input class="fi" id="a-custom" type="text" placeholder="Enter firm name" value="${addData.customFirm}" oninput="addData.customFirm=this.value"/></div>`:''}
-  <div class="fg"><label class="fl">Account Size</label>
-    <div class="szgrid">
-      ${SIZES.map(s=>`<button class="szbtn${(s.v==='c'?addData.isCustomSz:(addData.sizeV===s.v&&!addData.isCustomSz))?' on':''}" onclick="setSz('${s.v}','${s.l}')">${s.l}</button>`).join('')}
-    </div>
-    ${addData.isCustomSz?`<input class="fi" id="a-csz" type="number" placeholder="Enter amount e.g. 15000" value="${addData.customSz}" oninput="addData.customSz=this.value" style="margin-top:10px"/>`:''}</div>
-  <div class="fr">
-    <div class="fg" style="margin-bottom:0"><label class="fl">Status</label>
-      <select class="fi" id="a-status" onchange="addData.status=this.value">
-        ${STATUSES.map(s=>`<option${addData.status===s?' selected':''}>${s}</option>`).join('')}
-      </select>
-    </div>
-    <div class="fg" style="margin-bottom:0"><label class="fl">Fee Paid ($)</label><input class="fi" id="a-inv" type="number" placeholder="0" value="${addData.inv}" oninput="addData.inv=this.value"/></div>
-  </div>
-  <div class="fg" style="margin-top:14px"><label class="fl">Notes (optional)</label><textarea class="fi" id="a-notes" rows="2" style="resize:none" placeholder="Any notes..." oninput="addData.notes=this.value">${addData.notes}</textarea></div>
-  <div style="display:flex;gap:10px;margin-top:8px;padding-bottom:32px">
-    <button class="btn btn-ghost" onclick="setTab('accs')">Cancel</button>
-    <button class="btn btn-p" onclick="goAdd2()">Next: Add Rules →</button>
-  </div>`
-}
-
-function renderAdd2(){
-  const fn=addData.firm==='Other (Custom)'?addData.customFirm:addData.firm
-  return`
-  <div style="background:var(--purplebg);border:1.5px solid #C4BFFF;border-radius:12px;padding:11px 13px;margin-bottom:14px;display:flex;gap:9px">
-    <span style="font-size:16px">💡</span>
-    <p style="font-size:11px;color:#4338CA;font-weight:600;line-height:1.5">Log the specific rules for <strong>${fn} ${addData.sizeL}</strong>. Leave any blank to skip it.</p>
-  </div>
-  ${addRules.map((r,i)=>`
-  <div style="background:#fff;border:1.5px solid var(--border);border-radius:12px;padding:11px 13px;margin-bottom:9px;box-shadow:0 2px 6px rgba(0,0,0,0.04)">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:7px">
-      <span style="font-size:12px;font-weight:800;color:#0F172A">${r.i} ${r.n}</span>
-      <label style="display:flex;align-items:center;gap:5px;cursor:pointer">
-        <input type="checkbox" ${r.on?'checked':''} onchange="toggleRule(${i})" style="accent-color:var(--purple);width:14px;height:14px"/>
-        <span style="font-size:10px;color:#94A3B8;font-weight:600">Track</span>
-      </label>
-    </div>
-    ${r.on?`<input class="fi" type="text" placeholder="${r.p}" value="${r.v}" oninput="addRules[${i}].v=this.value" style="font-size:13px"/>`:''}</div>`).join('')}
-  ${addCustomRules.map((r,i)=>`
-  <div style="background:#fff;border:1.5px solid var(--border);border-radius:12px;padding:11px 13px;margin-bottom:9px">
-    <div style="display:flex;justify-content:space-between;margin-bottom:7px">
-      <span style="font-size:12px;font-weight:800;color:#0F172A">📌 Custom Rule</span>
-      <button onclick="removeCustomRule(${i})" style="background:var(--redbg);border:1.5px solid #FCA5A5;border-radius:7px;color:var(--red);font-size:10px;font-weight:700;padding:3px 8px;cursor:pointer">Remove</button>
-    </div>
-    <input class="fi" type="text" placeholder="Rule name" value="${r.name}" oninput="addCustomRules[${i}].name=this.value" style="margin-bottom:8px"/>
-    <input class="fi" type="text" placeholder="Rule detail" value="${r.val}" oninput="addCustomRules[${i}].val=this.value"/>
-  </div>`).join('')}
-  <button onclick="addCustomRule()" style="width:100%;background:none;border:2px dashed #C4BFFF;border-radius:12px;padding:11px;color:var(--purple);font-family:var(--font);font-size:13px;font-weight:700;cursor:pointer;margin-bottom:14px;display:flex;align-items:center;justify-content:center;gap:8px"><span style="font-size:18px">+</span> Add Custom Rule</button>
-  <div style="display:flex;gap:10px;padding-bottom:32px">
-    <button class="btn btn-ghost" onclick="addStep=1;render()">← Back</button>
-    <button class="btn btn-p" onclick="addStep=3;render()">Next: Review →</button>
-  </div>`
-}
-
-function renderAdd3(){
-  const fn=addData.firm==='Other (Custom)'?addData.customFirm:addData.firm
-  const m=SM[addData.status]||SM.Challenge
-  const savedRules=[...addRules.filter(r=>r.on&&r.v.trim()),...addCustomRules.filter(r=>r.name.trim()&&r.val.trim())]
-  return`
-  <div style="background:#fff;border:2px solid ${m.bc};border-top:4px solid ${m.c};border-radius:18px;padding:16px;margin-bottom:14px">
-    <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
-      <div style="width:44px;height:44px;border-radius:13px;background:${m.bg};display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:900;font-family:'Syne',sans-serif;color:${m.c};flex-shrink:0">${fn.charAt(0)}</div>
-      <div style="flex:1"><div style="font-size:15px;font-weight:800;color:#0F172A">${fn}</div><div style="font-size:11px;color:#475569;margin-top:2px">${addData.sizeL} · ${addData.status}</div></div>
-      <span class="badge b-${addData.status==='Funded'?'f':addData.status==='Challenge'?'c':'b'}">${m.e} ${addData.status}</span>
-    </div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
-      <div style="background:var(--card2);border-radius:9px;padding:9px"><div style="font-size:8px;font-weight:700;color:#94A3B8;text-transform:uppercase;letter-spacing:.8px;margin-bottom:3px">Fee Paid</div><div style="font-size:15px;font-weight:900;color:#0F172A">$${addData.inv||0}</div></div>
-      <div style="background:var(--card2);border-radius:9px;padding:9px"><div style="font-size:8px;font-weight:700;color:#94A3B8;text-transform:uppercase;letter-spacing:.8px;margin-bottom:3px">Rules Logged</div><div style="font-size:15px;font-weight:900;color:var(--purple)">${savedRules.length}</div></div>
-    </div>
-  </div>
-  <div style="font-size:10px;font-weight:700;color:#94A3B8;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Rules to be saved</div>
-  ${savedRules.map(r=>`
-  <div style="background:#fff;border:1.5px solid var(--border);border-radius:10px;padding:9px 12px;display:flex;align-items:center;gap:8px;margin-bottom:7px;box-shadow:0 1px 4px rgba(0,0,0,0.04)">
-    <span style="font-size:13px">${r.i||'📌'}</span>
-    <div style="flex:1"><div style="font-size:10px;font-weight:700;color:#0F172A">${r.n||r.name}</div><div style="font-size:9px;color:#94A3B8">${r.v||r.val}</div></div>
-    <span style="font-size:12px;font-weight:800;color:var(--green)">✓</span>
-  </div>`).join('')}
-  ${savedRules.length===0?`<div style="background:var(--amberbg);border:1.5px solid #FCD34D;border-radius:10px;padding:10px 12px;margin-bottom:14px;font-size:11px;color:var(--amber);font-weight:600">⚠ No rules added — you can add them later by editing this account</div>`:''}
-  <div style="background:var(--greenbg);border:1.5px solid #6EE7B7;border-radius:12px;padding:12px;text-align:center;font-size:12px;font-weight:700;color:var(--green);margin-bottom:16px;margin-top:8px">✓ Ready to save — will appear on your dashboard</div>
-  <div style="display:flex;gap:10px;padding-bottom:32px">
-    <button class="btn btn-ghost" onclick="addStep=2;render()">← Back</button>
-    <button class="btn btn-g" id="save-acc-btn" onclick="saveAcc()">✅ Save Account</button>
-  </div>`
-}
-
-window.setSz=(v,l)=>{if(v==='c'){addData.isCustomSz=true;addData.sizeV=0;addData.sizeL='Custom'}else{addData.isCustomSz=false;addData.sizeV=parseInt(v);addData.sizeL=l};render()}
-window.toggleRule=i=>{addRules[i].on=!addRules[i].on;render()}
-window.addCustomRule=()=>{addCustomRules.push({name:'',val:''});render()}
-window.removeCustomRule=i=>{addCustomRules.splice(i,1);render()}
-
-window.goAdd2=()=>{
-  const fn=addData.firm==='Other (Custom)'?addData.customFirm.trim():addData.firm
-  if(!fn){toast('Please select or enter a firm name','e');return}
-  if(addData.isCustomSz&&(!addData.customSz||parseFloat(addData.customSz)<=0)){toast('Please enter a valid account size','e');return}
-  addStep=2;render()
-}
-
-window.saveAcc=async()=>{
-  const btn=document.getElementById('save-acc-btn')
-  if(btn){btn.innerHTML='<div class="spin"></div>';btn.disabled=true}
-  const fn=addData.firm==='Other (Custom)'?addData.customFirm.trim():addData.firm
-  const finalSz=addData.isCustomSz?parseFloat(addData.customSz)||0:addData.sizeV
-  const finalLbl=addData.isCustomSz?`$${Number(finalSz).toLocaleString()}`:addData.sizeL
-  try{
-    const{data:acc,error}=await sb.from('accounts').insert([{user_id:S.session.user.id,firm:fn,size_value:finalSz,size_label:finalLbl,status:addData.status,investment:parseFloat(addData.inv)||0,notes:addData.notes.trim()}]).select().single()
-    if(error)throw error
-    const allRules=[...addRules.filter(r=>r.on&&r.v.trim()),...addCustomRules.filter(r=>r.name.trim()&&r.val.trim())]
-    for(const r of allRules){
-      await sb.from('rules').insert([{account_id:acc.id,user_id:S.session.user.id,rule_name:r.n||r.name,rule_value:r.v||r.val,status:'ok'}])
-    }
-    toast('Account added ✓','s')
-    addData={firm:FIRMS[0],customFirm:'',sizeV:10000,sizeL:'$10K',isCustomSz:false,customSz:'',status:'Challenge',inv:'',notes:''}
-    addRules=RTPL.map(t=>({...t,v:'',on:true}));addCustomRules=[];addStep=1
-    await loadData();S.tab='accs'
-  }catch(e){toast(e.message||'Error saving','e');if(btn){btn.innerHTML='✅ Save Account';btn.disabled=false}}
-}
-
-// ── PAYOUT MODAL ──────────────────────────────────────────────────
-let payAccId=null
-window.openPayModal=id=>{payAccId=id;S.modal='pay';render()}
-function renderModal(){
-  if(S.modal==='pay'){
-    const acc=S.accounts.find(a=>a.id===payAccId)
-    return`<div class="moverlay" onclick="if(event.target===this){S.modal=null;render()}">
-      <div class="mbox">
-        <div class="mhandle"></div>
-        <div class="mhdr"><span class="mtitle">Add Payout — ${acc?.firm||''}</span><button class="mclose" onclick="S.modal=null;render()">✕</button></div>
-        <div class="mbody">
-          <div class="fg"><label class="fl">Amount ($)</label><input class="fi" id="p-amt" type="number" placeholder="e.g. 5000" autofocus/></div>
-          <div class="fr">
-            <div class="fg" style="margin-bottom:0"><label class="fl">Date</label><input class="fi" id="p-date" type="date" value="${new Date().toISOString().slice(0,10)}"/></div>
-            <div class="fg" style="margin-bottom:0"><label class="fl">Note</label><input class="fi" id="p-note" type="text" placeholder="e.g. Phase 1"/></div>
-          </div>
-          <div style="display:flex;gap:10px;margin-top:18px">
-            <button class="btn btn-ghost" onclick="S.modal=null;render()">Cancel</button>
-            <button class="btn btn-g" onclick="savePayout()">Save Payout</button>
-          </div>
-        </div>
-      </div>
-    </div>`
-  }
-  if(S.modal==='goalEdit'){
-    const mg=S.goals.find(g=>g.is_main)||{target:150000}
-    return`<div class="moverlay" onclick="if(event.target===this){S.modal=null;render()}">
-      <div class="mbox">
-        <div class="mhandle"></div>
-        <div class="mhdr"><span class="mtitle">Edit Main Goal</span><button class="mclose" onclick="S.modal=null;render()">✕</button></div>
-        <div class="mbody">
-          <div class="fg"><label class="fl">Target Total Payout ($)</label><input class="fi" id="g-target" type="number" value="${mg.target||150000}"/><div style="font-size:11px;color:#94A3B8;margin-top:5px">Default: $150,000 across all firms</div></div>
-          <div style="display:flex;gap:10px;margin-top:8px">
-            <button class="btn btn-ghost" onclick="S.modal=null;render()">Cancel</button>
-            <button class="btn btn-p" onclick="saveGoal()">Save Goal</button>
-          </div>
-        </div>
-      </div>
-    </div>`
-  }
-  if(S.modal==='addMS'){
-    return`<div class="moverlay" onclick="if(event.target===this){S.modal=null;render()}">
-      <div class="mbox">
-        <div class="mhandle"></div>
-        <div class="mhdr"><span class="mtitle">Add Milestone</span><button class="mclose" onclick="S.modal=null;render()">✕</button></div>
-        <div class="mbody">
-          <div class="fg"><label class="fl">Milestone Name</label><input class="fi" id="ms-label" type="text" placeholder="e.g. Monthly Payout Target" autofocus/></div>
-          <div class="fr">
-            <div class="fg" style="margin-bottom:0"><label class="fl">Unit</label><select class="fi" id="ms-unit"><option value="$">$ Dollar</option><option value="">Count</option><option value="%">%</option></select></div>
-            <div class="fg" style="margin-bottom:0"><label class="fl">Target</label><input class="fi" id="ms-target" type="number" placeholder="e.g. 20000"/></div>
-          </div>
-          <div class="fg" style="margin-top:12px"><label class="fl">Current Progress</label><input class="fi" id="ms-current" type="number" placeholder="e.g. 14000"/></div>
-          <div style="display:flex;gap:10px;margin-top:8px">
-            <button class="btn btn-ghost" onclick="S.modal=null;render()">Cancel</button>
-            <button class="btn btn-p" onclick="saveMilestone()">Add Milestone</button>
-          </div>
-        </div>
-      </div>
-    </div>`
-  }
-  return''
-}
-
-window.savePayout=async()=>{
-  const amt=document.getElementById('p-amt')?.value
-  const date=document.getElementById('p-date')?.value
-  const note=document.getElementById('p-note')?.value
-  if(!amt||parseFloat(amt)<=0){toast('Enter a valid amount','e');return}
-  const{error}=await sb.from('payouts').insert([{account_id:payAccId,user_id:S.session.user.id,amount:parseFloat(amt),date,note:note?.trim()}])
-  if(error)toast(error.message,'e')
-  else{toast('Payout added ✓','s');S.modal=null;await loadData()}
-}
-
-// ── PAYOUTS PAGE ──────────────────────────────────────────────────
-function renderPays(st){
-  const{allPay,totalPay,mainGoal}=st
-  const largest=allPay.length?Math.max(...allPay.map(p=>p.amount)):0
-  const avg=allPay.length?totalPay/allPay.length:0
-  return`
-  <div class="ph"><div><h1>Payouts</h1><div class="sub">${allPay.length} entries</div></div><div style="background:var(--greenbg);border:1.5px solid #6EE7B7;border-radius:9px;padding:5px 10px;font-size:10px;font-weight:700;color:var(--green)">+${fmt(totalPay)}</div></div>
-  <div style="display:flex;gap:9px;padding:10px 16px;overflow-x:auto;scrollbar-width:none">
-    ${[{l:'Total',v:fmt(totalPay),c:'#059669'},{l:'Largest',v:fmt(largest),c:'#0F172A'},{l:'Average',v:fmt(avg),c:'#0F172A'},{l:'Remaining',v:fmt(Math.max((mainGoal?.target||150000)-totalPay,0)),c:'#5B4FE9'}].map(s=>`
-    <div style="flex-shrink:0;background:#fff;border:1.5px solid var(--border);border-radius:12px;padding:10px 14px;min-width:88px;box-shadow:0 2px 6px rgba(0,0,0,0.04)">
-      <div style="font-size:8px;font-weight:700;color:#94A3B8;text-transform:uppercase;letter-spacing:1px;margin-bottom:3px">${s.l}</div>
-      <div style="font-size:16px;font-weight:900;color:${s.c}">${s.v}</div>
-    </div>`).join('')}
-  </div>
-  <div style="padding:6px 16px 7px;font-size:9px;font-weight:700;color:#94A3B8;letter-spacing:1.5px;text-transform:uppercase">All Entries · Newest First</div>
-  ${allPay.length===0?`<div class="empty"><div class="ei">💰</div><h3>No payouts yet</h3><p>Go to Accounts and tap + Add Payout on any account</p><button class="btn btn-p btn-sm" onclick="setTab('accs')">Go to Accounts</button></div>`:
-  allPay.map(p=>`
-  <div style="margin:0 16px 9px;background:#fff;border:1.5px solid var(--border);border-left:4px solid var(--green);border-radius:14px;padding:12px 13px;display:flex;align-items:center;gap:11px;box-shadow:0 2px 8px rgba(0,0,0,0.05)">
-    <div style="width:36px;height:36px;border-radius:11px;background:var(--greenbg);display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0">💚</div>
-    <div style="flex:1;min-width:0"><div style="font-size:12px;font-weight:800;color:#0F172A">${p.firm}</div><div style="font-size:10px;color:#94A3B8;margin-top:1px">${fmtD(p.date)}${p.note?' · '+p.note:''}</div></div>
-    <div style="font-size:16px;font-weight:900;color:var(--green);flex-shrink:0">+$${Number(p.amount).toLocaleString()}</div>
-  </div>`).join('')}
-  <div style="height:16px"></div>`
-}
-
-// ── PERFORMANCE ───────────────────────────────────────────────────
-function renderPerf(st){
-  const{perf}=st
-  if(!perf)return`<div class="ph"><div><h1>Performance</h1><div class="sub">Trading assessment</div></div></div><div class="empty"><div class="ei">📈</div><h3>Add accounts to unlock</h3><p>Your performance will be scored across 5 dimensions once you have data.</p></div>`
-  const bars=[{l:'Win Rate',s:perf.ws,c:'#5B4FE9',d:`${Math.round(perf.wr*100)}% accounts funded`},{l:'Return on Investment',s:perf.rs,c:'#059669',d:perf.roi>=0?`${Math.round(perf.roi*100)}% return on fees`:'Payouts below fees'},{l:'Risk Control',s:perf.brs,c:'#D97706',d:`${Math.round(perf.br*100)}% breach rate`},{l:'Diversification',s:perf.div,c:'#0284C7',d:'Active across multiple firms'},{l:'Goal Progress',s:perf.ps,c:'#7C3AED',d:`${perf.ps}% toward target`}]
-  const insights=[[perf.brs<60,'warn','⚠️','High breach rate — reduce risk exposure.'],[perf.rs<30,'warn','📉','ROI is low. Focus on passing challenges first.'],[perf.ws>=75,'good','🏆','Excellent funding rate — keep it up!'],[perf.div>=60,'info','🔀','Good diversification across firms.'],[perf.ps>=50,'good','💰','Halfway to your goal — stay consistent!']].filter(([c])=>c).map(([,t,i,x])=>({t,i,x}))
-  return`
-  <div class="ph"><div><h1>Performance</h1><div class="sub">5 dimensions scored</div></div></div>
-  <div style="margin:12px 16px 0;background:linear-gradient(145deg,#5B4FE9,#4338CA);border-radius:22px;padding:20px;display:flex;align-items:center;gap:18px;box-shadow:0 8px 28px rgba(91,79,233,0.35)">
-    <div style="width:80px;height:80px;border-radius:50%;background:rgba(255,255,255,0.15);border:2px solid rgba(255,255,255,0.3);display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0">
-      <div style="font-family:'Syne',sans-serif;font-size:36px;font-weight:900;color:#fff;line-height:1">${perf.g}</div>
-      <div style="font-size:10px;color:rgba(255,255,255,0.7);font-weight:700">${perf.ov}/100</div>
-    </div>
-    <div><div style="font-size:9px;color:rgba(255,255,255,0.65);font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:3px">Overall Grade</div>
-    <div style="font-family:'Syne',sans-serif;font-size:20px;font-weight:900;color:#fff;margin-bottom:4px">${perf.l}</div>
-    <div style="font-size:10px;color:rgba(255,255,255,0.75);line-height:1.5">${perf.g==='S'?'Elite level. Outstanding.':perf.g==='A'?'Strong across the board.':perf.g==='B'?'Good progress — keep growing.':'Stay consistent. Build your track record.'}</div></div>
-  </div>
-  <div style="padding:13px 16px 8px;font-size:12px;font-weight:800;color:#0F172A">Score Breakdown</div>
-  ${bars.map(b=>`
-  <div style="padding:0 16px;margin-bottom:12px">
-    <div style="display:flex;justify-content:space-between;margin-bottom:5px">
-      <span style="font-size:12px;font-weight:700;color:#0F172A">${b.l}</span>
-      <span style="font-size:12px;font-weight:900;color:${b.c}">${b.s}pts</span>
-    </div>
-    <div style="height:8px;background:var(--border);border-radius:4px;overflow:hidden"><div style="height:100%;width:${b.s}%;background:${b.c};border-radius:4px;transition:width .8s ease"></div></div>
-    <div style="font-size:9px;color:#94A3B8;margin-top:3px">${b.d}</div>
-  </div>`).join('')}
-  ${insights.length?`<div style="padding:10px 16px 7px;font-size:12px;font-weight:800;color:#0F172A">Insights</div>
-  <div style="padding:0 16px">
-    ${insights.map(i=>`<div class="ins i${i.t.charAt(0)}"><span style="font-size:16px">${i.i}</span><p>${i.x}</p></div>`).join('')}
-  </div>`:''}
-  <div style="height:16px"></div>`
-}
-
-// ── GOALS ─────────────────────────────────────────────────────────
-function renderGoals(st){
-  const{totalPay,goalPct,mainGoal}=st
-  const ms=S.milestones
-  const COLS=['#5B4FE9','#059669','#D97706','#0284C7','#DC2626']
-  return`
-  <div class="ph"><div><h1>Goals</h1><div class="sub">Your trading targets</div></div><button class="add-btn" onclick="S.modal='addMS';render()">+ Milestone</button></div>
-  <div style="margin:12px 16px 0;background:linear-gradient(145deg,#5B4FE9,#4338CA);border-radius:22px;padding:20px;box-shadow:0 8px 28px rgba(91,79,233,0.35)">
-    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px">
-      <div>
-        <div style="font-size:9px;color:rgba(255,255,255,0.65);font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px">🎯 Main Payout Goal</div>
-        <div style="font-family:'Syne',sans-serif;font-size:28px;font-weight:900;color:#fff">${fmt(mainGoal.target||150000)}</div>
-        <div style="font-size:11px;font-weight:700;color:#A5F3D4;margin-top:3px">${fmt(totalPay)} earned · ${Math.round(goalPct)}% complete</div>
-      </div>
-      <button onclick="S.modal='goalEdit';render()" style="background:rgba(255,255,255,0.18);border:1px solid rgba(255,255,255,0.3);border-radius:8px;color:#fff;font-family:var(--font);font-size:10px;font-weight:700;padding:6px 10px;cursor:pointer">Edit</button>
-    </div>
-    <div style="height:10px;background:rgba(255,255,255,0.18);border-radius:5px;overflow:hidden;margin-bottom:6px"><div style="height:100%;width:${goalPct}%;background:linear-gradient(90deg,#A5F3D4,#6EE7B7);border-radius:5px;transition:width .8s ease"></div></div>
-    <div style="display:flex;justify-content:space-between">
-      ${['$0',fmt((mainGoal.target||150000)*.25),fmt((mainGoal.target||150000)*.5),fmt((mainGoal.target||150000)*.75),fmt(mainGoal.target||150000)].map(l=>`<span style="font-size:8px;color:rgba(255,255,255,0.45)">${l}</span>`).join('')}
-    </div>
-    <div style="background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.2);border-radius:10px;padding:10px;font-size:11px;color:#fff;font-weight:700;margin-top:11px;text-align:center">
-      ${goalPct>=100?'🎉 Goal reached! Set a new one.':goalPct>=75?`🔥 Almost there! ${fmt(Math.max((mainGoal.target||150000)-totalPay,0))} to go`:goalPct>=50?`🚀 Over halfway! ${fmt(Math.max((mainGoal.target||150000)-totalPay,0))} remaining`:`💪 Keep going! ${fmt(Math.max((mainGoal.target||150000)-totalPay,0))} remaining`}
-    </div>
-  </div>
-  <div style="padding:14px 16px 8px;font-size:12px;font-weight:800;color:#0F172A">Milestones</div>
-  ${ms.length===0?`<div style="margin:0 16px;background:#fff;border:2px dashed #C4BFFF;border-radius:16px;padding:20px;text-align:center"><div style="font-size:28px;margin-bottom:8px">🎯</div><div style="font-size:13px;font-weight:700;color:#475569;margin-bottom:4px">No milestones yet</div><div style="font-size:11px;color:#94A3B8">Tap + Milestone to add targets</div></div>`:''}
-  ${ms.map((m,i)=>{const pct=m.target_value>0?Math.min((m.current_value/m.target_value)*100,100):0;const c=COLS[i%COLS.length];return`
-  <div style="margin:0 16px 9px;background:#fff;border:1.5px solid var(--border);border-radius:14px;padding:13px 14px;box-shadow:0 2px 8px rgba(0,0,0,0.05)">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
-      <span style="font-size:13px;font-weight:800;color:#0F172A">${m.label}</span>
-      <div style="display:flex;align-items:center;gap:8px">
-        <span style="font-size:12px;font-weight:800;color:${c}">${m.unit}${Number(m.current_value||0).toLocaleString()} / ${m.unit}${Number(m.target_value||0).toLocaleString()}</span>
-        <button onclick="delMS('${m.id}')" style="background:none;border:none;color:#FCA5A5;font-size:14px;cursor:pointer;padding:2px">✕</button>
-      </div>
-    </div>
-    <div style="height:7px;background:var(--border);border-radius:4px;overflow:hidden"><div style="height:100%;width:${pct}%;background:${c};border-radius:4px;transition:width .8s ease"></div></div>
-    <div style="font-size:10px;color:#94A3B8;margin-top:4px">${Math.round(pct)}% complete</div>
-  </div>`}).join('')}
-  <div style="height:16px"></div>
-  ${S.modal?renderModal():''}`
-}
-
-window.saveGoal=async()=>{
-  const t=parseFloat(document.getElementById('g-target')?.value)||150000
-  const mg=S.goals.find(g=>g.is_main)
-  if(mg){await sb.from('goals').update({target:t}).eq('id',mg.id)}
-  else{await sb.from('goals').insert([{user_id:S.session.user.id,label:'Main Payout Goal',target:t,is_main:true}])}
-  toast('Goal updated ✓','s');S.modal=null;await loadData()
-}
-
-window.saveMilestone=async()=>{
-  const label=document.getElementById('ms-label')?.value?.trim()
-  if(!label){toast('Enter a milestone name','e');return}
-  const unit=document.getElementById('ms-unit')?.value||''
-  const target=parseFloat(document.getElementById('ms-target')?.value)||0
-  const current=parseFloat(document.getElementById('ms-current')?.value)||0
-  await sb.from('milestones').insert([{user_id:S.session.user.id,label,unit,target_value:target,current_value:current}])
-  toast('Milestone added ✓','s');S.modal=null;await loadData()
-}
-
-window.delMS=async id=>{if(!confirm('Delete this milestone?'))return;await sb.from('milestones').delete().eq('id',id);toast('Removed','s');await loadData()}
-
-// ── BIND PAGE ─────────────────────────────────────────────────────
-function bindPage(){
-  // Sign out button if needed
-  const so=document.getElementById('signout-btn')
-  if(so)so.addEventListener('click',async()=>{await sb.auth.signOut();toast('Signed out','s')})
-}
-
-// ── INIT ──────────────────────────────────────────────────────────
-sb.auth.onAuthStateChange(async(_,session)=>{
-  S.session=session
-  if(session){S.loading=true;render();await loadData()}
-  else{S.loading=false;render()}
-})
-
-sb.auth.getSession().then(({data:{session}})=>{
-  S.session=session
-  if(session){S.loading=true;render();loadData()}
-  else{S.loading=false;render()}
-})
-</script>
-</body>
-</html>
+  <div style="padding:calc(var(--st) + 13px) 16px 0;display:flex;justify-content:space-between;align-items:center">
+    <div><div styl
